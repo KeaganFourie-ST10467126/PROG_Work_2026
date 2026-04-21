@@ -1,0 +1,25 @@
+﻿<Window x:Class="MultiWindowDemo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MultiWindowDemo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="648" Width="800">
+    <Grid>
+        <Border BorderBrush="#FF837575" Margin="20" BorderThickness="2" CornerRadius="5">
+            <Canvas x:Name="canvas" HorizontalAlignment="Center" Margin="20" VerticalAlignment="Center" Height="500" Width="600" Background="White" OpacityMask="#FF837575">
+                <Button x:Name="ShowNewWindow" Content="Show new Window" Canvas.Left="128" Canvas.Top="40" Height="64" Width="344" FontWeight="Bold" FontSize="20" Click="ShowNewWindow_Click"/>
+                <Button x:Name="btnShowDialog" Content="Show Dialog Window" Canvas.Left="128" Canvas.Top="120" Height="64" Width="344" FontSize="20" FontWeight="Bold" Click="btnShowDialog_Click"/>
+                <Button x:Name="btnShowHide" Content="Show and Hide Window" Canvas.Left="128" Canvas.Top="200" Height="64" Width="344" FontSize="20" FontWeight="Bold" Click="btnShowHide_Click"/>
+                <Label x:Name="lblEnterName" Content="Enter Name:" Canvas.Left="140" Canvas.Top="280" Height="30" Width="119" FontWeight="Bold" FontSize="16"/>
+                <TextBox x:Name="txtBoxEnterName" Canvas.Left="140" Canvas.Top="310" Height="43" TextWrapping="Wrap" Text="" Width="320" FontSize="16" FontWeight="Bold"/>
+                <Button x:Name="btnSendName" Content="Send Name to Second Form" Canvas.Left="157" Canvas.Top="370" Height="46" Width="286" FontSize="18" FontWeight="Bold" Click="btnSendName_Click"/>
+            </Canvas>
+        </Border>
+
+
+        
+
+    </Grid>
+</Window>
