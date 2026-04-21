@@ -19,9 +19,9 @@
         <Canvas Height="105" Background="#FF104450" Margin="10">
             <Label Content="Skills" Canvas.Left="30" Canvas.Top="10" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"></Label>
             <UniformGrid Rows="1" Canvas.Left="30" Canvas.Top="62" Height="17" Width="680" HorizontalAlignment="Center" VerticalAlignment="Center">
-                <CheckBox Content="C#" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
-                <CheckBox Content="Java" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
-                <CheckBox Content="Python" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                <CheckBox x:Name="chkCSharp" Content="C#" HorizontalAlignment="Left" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                <CheckBox x:Name="chkJava" Content="Java" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                <CheckBox x:Name="chkPython" Content="Python" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="White" FontWeight="Bold"/>
             </UniformGrid>
         </Canvas>
         <Canvas Height="100" Background="#FF104450" Margin="10">
@@ -34,11 +34,11 @@
         </Canvas>
         <Canvas Height="80" Background="#FF104450" Margin="10">
             <Label Content="Preferred Work Type" Canvas.Left="30" Canvas.Top="10" Foreground="White" HorizontalAlignment="Left" VerticalAlignment="Center" FontWeight="Bold" FontSize="20"></Label>
-            <RadioButton Name="remote" Content="Remote" Canvas.Left="30" Canvas.Top="47" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
-            <RadioButton Name="onSite" Content="On-site" Canvas.Left="150" Canvas.Top="47" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <RadioButton x:Name="radioRemote" Content="Remote" Canvas.Left="30" Canvas.Top="47" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
+            <RadioButton x:Name="radioOnSite" Content="On-site" Canvas.Left="150" Canvas.Top="47" HorizontalAlignment="Left" VerticalAlignment="Top" Foreground="White" FontWeight="Bold"/>
         </Canvas>
         <Canvas Height="58" Margin="10">
-            <Button Name="btnSubmit" Content="Submit Application" Canvas.Left="295" Canvas.Top="14" Width="150" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Background="White" Foreground="Black" FontWeight="Bold"/>
+            <Button Name="btnSubmit" Content="Submit Application" Canvas.Left="295" Canvas.Top="14" Width="150" Height="30" HorizontalAlignment="Center" VerticalAlignment="Top" Background="White" Foreground="Black" FontWeight="Bold" Click="btnSubmit_Click"/>
         </Canvas>
         <Canvas Height="208">
             <TextBlock x:Name="txtOutput" Canvas.Left="188" Width="384" Height="198" TextWrapping="Wrap" Background="White"  Foreground="Black" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top"/>
