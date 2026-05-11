@@ -25,20 +25,27 @@ namespace JobApplicationApp
             InitializeComponent();
         }
 
+        string name;
+        string position;
+        string expectedSalary;
+
         private void btnSubmit_Click(object sender, RoutedEventArgs e)
         {
+            name = txtName.Text.Trim();
             if (string.IsNullOrWhiteSpace(txtName.Text))
             {
                 MessageBox.Show("Please enter your full name.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
+            position = txtPosition.Text.Trim();
             if (string.IsNullOrWhiteSpace(txtPosition.Text))
             {
                 MessageBox.Show("Please enter the position you are applying for.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
 
+            expectedSalary = txtExpSalary.Text.Trim();
             if (string.IsNullOrWhiteSpace(txtExpSalary.Text) || !decimal.TryParse(txtExpSalary.Text, out _))
             {
                 MessageBox.Show("Please enter a valid numeric value for the expected salary.", "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -62,8 +69,15 @@ namespace JobApplicationApp
             if (chkJava.IsChecked == true) skills.Add("Java");
             if (chkPython.IsChecked == true) skills.Add("Python");
 
-            txtOutput.Text = $"Name: {txtName.Text}\nPosition: {txtPosition.Text}\nExpected Salary (R): {txtExpSalary.Text}" +
-                $"\nAvailability: {PreferenceCanvas.Text}\nPreferred Work Type: {(radioRemote.IsChecked == true ? "Remote" : "On-site")}" +
+            
+
+
+            txtOutput.Text = 
+                $"Name: {name}" +
+                $"\nPosition: {position}" +
+                $"\nExpected Salary (R): {expectedSalary}" +
+                $"\nAvailability: {PreferenceCanvas.Text}" +
+                $"\nPreferred Work Type: {(radioRemote.IsChecked == true ? "Remote" : "On-site")}" +
                 $"\nSkills: {string.Join(", ", skills)}";
 
             string output = txtOutput.Text;
