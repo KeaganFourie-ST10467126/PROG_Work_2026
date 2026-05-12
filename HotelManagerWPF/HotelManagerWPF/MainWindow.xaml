@@ -44,7 +44,7 @@
 
         <TextBlock Text="Tip: click a row in the list to load it into the fields above" FontStyle="Italic" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 
-        <ListView x:Name="lvRooms" Height="240" Width="570" FontSize="14">
+        <ListView x:Name="lvRooms" Height="240" Width="570" FontSize="14" SelectionChanged="lvRooms_SelectionChanged">
             <ListView.View>
                 <GridView>
                     <GridViewColumn Header="Room Number" Width="140"

@@ -50,20 +50,17 @@ namespace HotelManagerWPF
         }
 
         //Update method to change the information of a room in the list of rooms.
-        public bool UpdateRoom(Room room, int newRoomNum, string newRoomType, string newStatus)
+        public bool UpdateRoom(Room room)
         {
             foreach (Room r in rooms)
             {
                 if (r.RoomNumber == room.RoomNumber)
                 {
-                    r.RoomNumber = newRoomNum;
-                    r.RoomType = newRoomType;
-                    r.Status = newStatus;
-                    MessageBox.Show("Room updated successfully.");
+                    r.RoomType = room.RoomType;
+                    r.Status = room.Status;
                     return true;
                 }
             }
-            MessageBox.Show("Room not found.");
             return false;
         }
 
