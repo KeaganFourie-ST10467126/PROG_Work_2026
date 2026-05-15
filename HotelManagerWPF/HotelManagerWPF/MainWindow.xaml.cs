@@ -26,8 +26,8 @@ namespace HotelManagerWPF
             InitializeComponent();
         }
 
-        //Instantiate the RoomManager class to manage the list of rooms.
-        RoomManager roomManager = new RoomManager();
+        //Instantiate the RoomDatabase class to manage the list of rooms.
+        RoomDatabase roomDatabase = new RoomDatabase();
 
         private void btn_Add_Click(object sender, RoutedEventArgs e)
         {
@@ -44,25 +44,23 @@ namespace HotelManagerWPF
                 Status = status
             };
 
-            //Add the room to the list of rooms using the RoomManager class.
-            bool added = roomManager.AddRoom(room);
-
-            if (added == true)
+            //Save to db first, then refresh the list view to show the new room.
+            try
             {
-                //Refresh the list view to show the new room.
+                roomDatabase.AddRoom(room);
                 lvRooms.ItemsSource = null;
-                lvRooms.ItemsSource = roomManager.ReadAllRooms();
+                lvRooms.ItemsSource = roomDatabase.ReadAllRooms();
+                MessageBox.Show($"Room {roomNum} added successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                
             }
-            else
+            catch (Exception ex)
             {
-                //Show an error message if the room number already exists.
-                MessageBox.Show("Room number already exists. Please enter a unique room number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Could not add the room. \n\n" + ex.Message);
             }
         }
         //Update the room details based on the selected room in the list view and the values in the text boxes.
         private void btn_Update_Click(object sender, RoutedEventArgs e)
         {   
-            //Get the selected room object from the list view
             Room selected = lvRooms.SelectedItem as Room;
 
             if (selected == null)
@@ -71,47 +69,22 @@ namespace HotelManagerWPF
                 return;
             }
 
-            if (!int.TryParse(txt_RoomNumber.Text, out int roomNum))
+            try
             {
-                MessageBox.Show("Please enter a valid numeric room number.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
+                selected.RoomType = txt_RoomType.Text;
+                selected.Status = txt_Status.Text;
 
-            string roomType = txt_RoomType.Text;
-            string status = txt_Status.Text;
-
-            if (roomNum != selected.RoomNumber)
-            {
-                MessageBox.Show("Room number cannot be changed. Please enter the same room number as the selected room.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            } 
-            else if (string.IsNullOrWhiteSpace(roomType) || string.IsNullOrWhiteSpace(status))
-            {
-                MessageBox.Show("Room type and status cannot be empty.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
-                return;
-            }
-
-            Room updatedRoom = new Room
-            {
-                RoomNumber = roomNum,
-                RoomType = roomType,
-                Status = status
-            };
-
-            //Update the room in the list using the RoomManager class.
-            bool updated = roomManager.UpdateRoom(updatedRoom);
-
-            if (updated)
-            {
-                //Refresh the list view to show the updated room.
+                roomDatabase.UpdateRoom(selected);
+                
                 lvRooms.ItemsSource = null;
-                lvRooms.ItemsSource = roomManager.ReadAllRooms();
+                lvRooms.ItemsSource = roomDatabase.ReadAllRooms();
+                
+                MessageBox.Show($"Room {selected.RoomNumber} updated successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Room not found.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Could not update the room. \n\n" + ex.Message);
             }
-
         }
 
         private void btn_Delete_Click(object sender, RoutedEventArgs e)
@@ -125,31 +98,41 @@ namespace HotelManagerWPF
                 return;
             }
 
-            // Remove the room using the RoomManager class.
-            bool deleted = roomManager.RemoveRoom(selected);
-
-            if (deleted)
+            try
             {
-                // Refresh the list view to show the updated list.
-                lvRooms.ItemsSource = null;
-                lvRooms.ItemsSource = roomManager.ReadAllRooms();
+                // Remove the room using the RoomDatabase class.
+                bool deleted = roomDatabase.DeleteRoom(selected);
 
-                // Clear the text boxes after deleting
-                txt_RoomNumber.Clear();
-                txt_RoomType.Clear();
-                txt_Status.Clear();
+                if (deleted)
+                {
+                    // Refresh the list view to show the updated list.
+                    lvRooms.ItemsSource = null;
+                    lvRooms.ItemsSource = roomDatabase.ReadAllRooms();
+
+                    // Clear the text boxes after deleting
+                    txt_RoomNumber.Clear();
+                    txt_RoomType.Clear();
+                    txt_Status.Clear();
+                    
+                    MessageBox.Show($"Room {selected.RoomNumber} deleted successfully.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Could not delete the room. \n\n" + ex.Message);
             }
         }
 
         private void btn_Refresh_Click(object sender, RoutedEventArgs e)
         {
-
+            lvRooms.ItemsSource = null;
+            lvRooms.ItemsSource = roomDatabase.ReadAllRooms();
         }
         //Loaded event handler for the window to populate the ListView with the list of rooms when the application starts.
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             lvRooms.ItemsSource = null;
-            lvRooms.ItemsSource = roomManager.ReadAllRooms();
+            lvRooms.ItemsSource = roomDatabase.ReadAllRooms();
         }
         //SelectionChanged event handler for the ListView to display the selected room's details in the text boxes.
         private void lvRooms_SelectionChanged(object sender, SelectionChangedEventArgs e)
