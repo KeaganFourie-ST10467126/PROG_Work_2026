@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HotelManagerWPF
 {
-    internal class Room
+    public class Room
     {
         public int RoomNumber { get; set; }
         public string RoomType { get; set; }

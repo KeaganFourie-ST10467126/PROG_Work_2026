@@ -1,11 +1,11 @@
 ﻿using MySql.Data.MySqlClient;
-using MySqlConnector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
+
 
 namespace HotelManagerWPF
 {
@@ -15,10 +15,10 @@ namespace HotelManagerWPF
     public class RoomDatabase
     {
         //We only want this class to talk to the database, so we will make the connection string private and only use it in this class.
-        private string connectionString = "Server= ;Port= ;Database= ;Uid= ;Pwd= "; //Just add a connection string here to connect to your MySQL database.
+        private string connectionString = "Server=localhost ;Port=3306 ;Database=hotelwpfdb ;Uid=root ;Pwd=RootPW#123!"; //Just add a connection string here to connect to your MySQL database.
 
         //Create - Insert the Room in the DB.
-        public bool AddRoom(Room room)
+        public void AddRoom(Room room)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -43,7 +43,7 @@ namespace HotelManagerWPF
         public List<Room> ReadAllRooms()
         {
             List<Room> rooms = new List<Room>();
-            using (MySqlConnection connection = new MySqlConnection())
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 //Open the connection to the database.
                 connection.Open();
