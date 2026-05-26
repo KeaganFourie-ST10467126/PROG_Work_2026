@@ -70,7 +70,7 @@
         </StackPanel>
 
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,8">
-            <Button Content="Delete Selected" Width="140" Height="45" Click="Button_Click" Background="{StaticResource WarningColour }" BorderBrush="{StaticResource WarningColour }">
+            <Button Content="Delete Selected" Width="140" Height="45" Click="DeleteButton_Click" Background="{StaticResource WarningColour }" BorderBrush="{StaticResource WarningColour }">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <!-- The Border element provides the rounded corners -->
@@ -84,8 +84,20 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-        </StackPanel>
-
+				<Button Content="Update Selected" Width="140" Height="45" Click="UpdateButton_Click" Background="{StaticResource AccentColour }" BorderBrush="{StaticResource AccentColour }">
+					<Button.Template>
+						<ControlTemplate TargetType="Button">
+							<!-- The Border element provides the rounded corners -->
+							<Border Background="{TemplateBinding Background}"
+							BorderBrush="{TemplateBinding BorderBrush}"
+							BorderThickness="{TemplateBinding BorderThickness}"
+							CornerRadius="10">
+								<ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+							</Border>
+						</ControlTemplate>
+					</Button.Template>
+				</Button>
+			</StackPanel>
             <TextBlock Text="Tip: click a row to select it before deleting" FontStyle="Italic" Foreground="Gray" HorizontalAlignment="Center" Margin="0,0,0,10"/>
 
             <ListView x:Name="lvAppointments" Height="260" FontSize="13">

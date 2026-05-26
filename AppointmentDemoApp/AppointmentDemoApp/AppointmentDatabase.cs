@@ -30,14 +30,13 @@ namespace AppointmentDatabase
                 connection.Open();
 
                 //placeholders for the real values, prevents malicious SQL code inputs
-                string query = "INSERT INTO Appointment (Id, Reason, ReminderDate) " +
-                               "VALUES (@Id, @Reason, @ReminderDate);";
+                string query = "INSERT INTO Appointment (Reason, ReminderDate) " +
+                               "VALUES (@Reason, @ReminderDate);";
 
                 MySqlCommand command = new MySqlCommand(query, connection);
 
                 // Parameterised queries protect us from SQL injection
                 // The user's text is sent SEPARATELY from the SQL command
-                command.Parameters.AddWithValue("@Id", appointment.Id);
                 command.Parameters.AddWithValue("@Reason", appointment.Reason);
                 command.Parameters.AddWithValue("@ReminderDate", appointment.ReminderDate);
 
@@ -90,10 +89,10 @@ namespace AppointmentDatabase
                 // Without WHERE, ALL rows would be updated - a very common bug!
                 string query = "UPDATE Appointment " +
                                "SET Reason = @reason, ReminderDate = @reminderDate " +
-                               "WHERE Id = @id;";
+                               "WHERE Id = @Id;";
 
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id", appointment.Id);
+                command.Parameters.AddWithValue("@Id", appointment.Id);
                 command.Parameters.AddWithValue("@reason", appointment.Reason);
                 command.Parameters.AddWithValue("@reminderDate", appointment.ReminderDate);
 
@@ -111,9 +110,9 @@ namespace AppointmentDatabase
                 connection.Open();
 
                 // Same warning as Update - the WHERE clause is critical!
-                string query = "DELETE FROM Appointment WHERE Id = @id;";
+                string query = "DELETE FROM Appointment WHERE Id = @Id;";
                 MySqlCommand command = new MySqlCommand(query, connection);
-                command.Parameters.AddWithValue("@id", id);
+                command.Parameters.AddWithValue("@Id", id);
 
                 command.ExecuteNonQuery();
             }
